@@ -1,4 +1,4 @@
-# PayLink — Payment Gateway
+# Payment Gateway
 
 A payment gateway built in Python for FicMart, a fictional e-commerce platform. It sits between FicMart's order service and a mock bank API, handling the payment lifecycle with strict state management, idempotency, and resilient failure handling.
 
@@ -75,7 +75,7 @@ The gateway creates a `PENDING` payment record before calling the bank. This mak
 ### Example
 
 ```bash
-curl -X POST http://localhost:8000/payments/authorize \
+curl -X POST http://localhost:8088/payments/authorize \
   -H "Content-Type: application/json" \
   -H "Idempotency-Key: unique-key-001" \
   -d '{
@@ -137,7 +137,7 @@ payment-gateway/
 ### 1. Clone
 
 ```bash
-git clone https://github.com/nehemiah-dev/paylink.git
+git clone https://github.com/nehemiah-dev/payment-gateway.git
 cd paylink
 ```
 
@@ -172,13 +172,13 @@ make run
 The gateway runs on:
 
 ```text
-http://localhost:8080
+http://localhost:8088
 ```
 
 The mock bank API documentation is available at:
 
 ```text
-http://localhost:8000/docs
+http://localhost:8787/docs
 ```
 
 ## Commands

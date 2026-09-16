@@ -1,6 +1,6 @@
-# FicMart Payment Gateway
+# PayLink — Payment Gateway
 
-A payment gateway built in Go for FicMart, a fictional e-commerce platform. It sits between FicMart's order service and a mock bank API, handling the payment lifecycle with strict state management, idempotency, and resilient failure handling.
+A payment gateway built in Python for FicMart, a fictional e-commerce platform. It sits between FicMart's order service and a mock bank API, handling the payment lifecycle with strict state management, idempotency, and resilient failure handling.
 
 ## Architecture
 
@@ -75,7 +75,7 @@ The gateway creates a `PENDING` payment record before calling the bank. This mak
 ### Example
 
 ```bash
-curl -X POST http://localhost:8088/payments/authorize \
+curl -X POST http://localhost:8000/payments/authorize \
   -H "Content-Type: application/json" \
   -H "Idempotency-Key: unique-key-001" \
   -d '{
@@ -131,14 +131,14 @@ payment-gateway/
 
 * Docker
 * Docker Compose
-* Go 1.25+
+* Python 3.11+
 * PostgreSQL database
 
 ### 1. Clone
 
 ```bash
-git clone https://github.com/Oliveszn/Payment-Gateway.git
-cd Payment-Gateway
+git clone https://github.com/nehemiah-dev/paylink.git
+cd paylink
 ```
 
 ### 2. Configure
@@ -172,13 +172,13 @@ make run
 The gateway runs on:
 
 ```text
-http://localhost:8088
+http://localhost:8080
 ```
 
 The mock bank API documentation is available at:
 
 ```text
-http://localhost:8787/docs
+http://localhost:8000/docs
 ```
 
 ## Commands
@@ -210,11 +210,10 @@ Current test coverage includes:
 
 ## Stack
 
-* **Go 1.25**
-* **PostgreSQL (Neon)**
-* **golang-migrate**
+* **Python**
+* **PostgreSQL**
+* **sqlalchemy**
 * **Docker + Docker Compose**
-* **testify**
 
 ## Design Decisions
 

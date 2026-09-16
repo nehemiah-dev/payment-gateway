@@ -1,0 +1,39 @@
+# Binaries and build artifacts
+/bin/
+/dist/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binaries and coverage
+*.test
+*.out
+coverage.txt
+coverage.html
+coverage/
+
+# Go workspace / module cache
+/vendor/
+go.work
+go.work.sum
+
+# Temporary files
+*.tmp
+*.log
+*.bak
+tmp/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# IDE / editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store

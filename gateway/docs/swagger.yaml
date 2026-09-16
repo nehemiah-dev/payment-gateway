@@ -1,0 +1,23 @@
+basePath: /api/v1
+host: localhost:8443
+info:
+  contact: {}
+  description: Core payment gateway service
+  title: Payment Gateway API
+  version: 1.0.0
+paths:
+  /health:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Health check
+      tags:
+      - system
+swagger: "2.0"

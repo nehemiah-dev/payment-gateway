@@ -2,7 +2,9 @@ package router
 
 import (
 	"net/http"
+	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 
 	swaggerFiles "github.com/swaggo/files"
@@ -15,6 +17,15 @@ import (
 
 func New() *gin.Engine {
 	r := gin.New() // not gin.Default() — we add our own middleware
+
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization", "X-Request-ID"},
+		ExposeHeaders:    []string{"X-Request-ID"},
+		AllowCredentials: false,
+		MaxAge:           12 * time.Hour,
+	}))
 
 	r.Use(middleware.RequestID())
 	r.Use(middleware.Logger())

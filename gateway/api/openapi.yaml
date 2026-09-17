@@ -1,0 +1,46 @@
+# schema version
+openapi: 3.1.1
+
+# docs
+info:
+  title: Ficmart Payment Gateway API
+  description: |
+    This is the API Specification for Ficmart Payment Gateway
+  version: 1.0.0
+
+servers:
+  - url: http://127.0.0.1:8443
+    description: Local Development Server
+
+tags:
+  - name: Health
+    description: Health and status endpoints
+
+# endpoints go here
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      description: Get the health status of the API
+      tags: [Health]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [healthy, unhealthy]

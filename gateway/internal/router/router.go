@@ -1,23 +1,20 @@
 package router
 
 import (
-	"net/http"
 	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
-
-	_ "github.com/nehemiah-dev/payment-gateway/docs"
+	"github.com/nehemiah-dev/payment-gateway/internal/api"
 	"github.com/nehemiah-dev/payment-gateway/internal/handlers"
 	"github.com/nehemiah-dev/payment-gateway/internal/middleware"
 )
 
 func New() *gin.Engine {
-	r := gin.New() // not gin.Default() — we add our own middleware
+	r := gin.New() // we add our own middleware
 
+	r.Use(middleware.Recovery())
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
@@ -29,17 +26,15 @@ func New() *gin.Engine {
 
 	r.Use(middleware.RequestID())
 	r.Use(middleware.Logger())
-	r.Use(middleware.Recovery())
 
-	r.GET("/health", handlers.Health)
-	r.GET("/docs", func(c *gin.Context) {
-		c.Redirect(http.StatusMovedPermanently, "/docs/index.html")
-	})
-	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	srv := handlers.NewServer()
+
+	r.GET("/health", srv.GetHealth)
+	api.RegisterDocsRoutes(r)
 
 	v1 := r.Group("/api/v1")
 
-	_ = v1
+	v1.GET("/health", srv.GetHealth)
 
 	return r
 }

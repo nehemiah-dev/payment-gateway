@@ -1,15 +1,21 @@
 package handlers
 
 import (
+	"net/http"
+
+	"github.com/nehemiah-dev/payment-gateway/internal/api"
+
 	"github.com/gin-gonic/gin"
 )
 
-// Health godoc
-// @Summary Health check
-// @Tags system
-// @Produce json
-// @Success 200 {object} map[string]string
-// @Router /health [get]
-func Health(c *gin.Context) {
-	c.JSON(200, gin.H{"status": "ok"})
+type Server struct{}
+
+func NewServer() *Server {
+	return &Server{}
+}
+
+// GetHealth handles GET /health
+func (s *Server) GetHealth(c *gin.Context) {
+	status := api.HealthStatusHealthy.Ptr()
+	c.JSON(http.StatusOK, api.GetHealth200JSONResponse{Status: status})
 }

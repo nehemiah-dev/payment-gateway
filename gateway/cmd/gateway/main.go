@@ -10,11 +10,6 @@ import (
 	"github.com/nehemiah-dev/payment-gateway/internal/router"
 )
 
-// @title Payment Gateway API
-// @version 1.0.0
-// @description Core payment gateway service
-// @host localhost:8443
-// @BasePath /api/v1
 func main() {
 	if err := run(); err != nil {
 		fmt.Fprintf(os.Stderr, "application error: %v\n", err)

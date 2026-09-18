@@ -9,18 +9,18 @@ import (
 )
 
 func Logger() gin.HandlerFunc {
-	return func(c *gin.Context) {
+	return func(ctx *gin.Context) {
 		start := time.Now()
-		c.Next()
+		ctx.Next()
 
 		zap.L().Info(
 			"request",
-			zap.String("request_id", c.GetString("request_id")),
-			zap.String("method", c.Request.Method),
-			zap.String("path", c.Request.URL.Path),
-			zap.Int("status", c.Writer.Status()),
+			zap.String("request_id", ctx.GetString("request_id")),
+			zap.String("method", ctx.Request.Method),
+			zap.String("path", ctx.Request.URL.Path),
+			zap.Int("status", ctx.Writer.Status()),
 			zap.Duration("latency", time.Since(start)),
-			zap.String("client_ip", c.ClientIP()),
+			zap.String("client_ip", ctx.ClientIP()),
 		)
 	}
 }
